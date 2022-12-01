@@ -2,7 +2,7 @@ name: simplex11
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -21,7 +21,7 @@ jobs:
       run: dotnet tool restore
 
     - name: Build and Test
-      run: dotnet  build transport/transport
+      run: dotnet  build simplex11
       
     - name: Test
       run: dotnet  cake --target=Test --test-run-name=Windows --configuration=Release
@@ -46,7 +46,7 @@ jobs:
       run: coveralls -t ${{ secrets.coveralls_token }} --root . -E ".*external.*" -E ".*tests.*"
 
   build:
-    name: simplex11
+    name: Build
     runs-on: windows-latest
     env:
       SONAR_SCANNER_VERSION: 4.6.1.2450 # Find the latest version in the "Windows" link on this page:
